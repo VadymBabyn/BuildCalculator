@@ -8,9 +8,9 @@ class HouseService:
         # Користувачі та адміни можуть переглядати будинки
         return self.house_repo.get_all_houses()
 
-    def add_house(self, user_role, photo, name, address, floors):
-        if user_role == 'admin':
-            self.house_repo.add_house(photo, name, address, floors)
+    def add_house(self, user_role, name, address, floors):
+        if user_role == True:
+            self.house_repo.add_house(name, address, floors)
         else:
             raise PermissionError("You do not have permission to add houses")
 

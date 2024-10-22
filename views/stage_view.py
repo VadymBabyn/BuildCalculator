@@ -71,7 +71,7 @@ class StageViewWindow(QDialog):
 
     def update_stages(self):
         # Очистити сітку етапів
-        for i in range(self.grid_layout.rowCount() - 2):  # -1 для пропуску кнопки "Назад"
+        for i in range(self.grid_layout.rowCount() - 2):
             widget = self.grid_layout.itemAt(i).widget()
             if widget:
                 widget.deleteLater()

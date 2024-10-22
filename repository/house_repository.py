@@ -13,11 +13,11 @@ class HouseRepository:
         connection.close()
         return houses
 
-    def add_house(self, photo, name, address, floors):
+    def add_house(self, name, address, floors):
         connection = get_connection()
         cursor = connection.cursor()
         # Додаємо photo до SQL запиту
-        cursor.execute("INSERT INTO houses (photo, name, address, floors) VALUES (%s, %s, %s, %s)", (photo, name, address, floors))
+        cursor.execute("INSERT INTO houses (photo, name, address, floors) VALUES (%s, %s, %s, %s)", ("photo/Build2.jpg", name, address, floors))
         connection.commit()
         cursor.close()
         connection.close()

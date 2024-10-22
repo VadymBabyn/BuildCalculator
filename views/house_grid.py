@@ -4,7 +4,6 @@ from PyQt5.QtGui import QPixmap
 from controller.house_controller import HouseController
 import sys
 
-
 class HouseGridWindow(QDialog):
     def __init__(self, is_admin=False):
         super().__init__()
@@ -53,6 +52,91 @@ class HouseGridWindow(QDialog):
 
         # Додаємо поле до сітки
         self.grid_layout.addLayout(new_house_layout, row, col)
+
+        add_button.clicked.connect(self.show_add_house_form)
+
+
+    def show_add_house_form(self):
+        # Вікно для введення інформації про новий будинок
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Додати новий будинок")
+
+        # Поля для вводу даних будинку
+        layout = QVBoxLayout()
+
+        name_input = QLineEdit(dialog)
+        name_input.setPlaceholderText("Назва будинку")
+        layout.addWidget(name_input)
+
+        address_input = QLineEdit(dialog)
+        address_input.setPlaceholderText("Адреса")
+        layout.addWidget(address_input)
+
+        floors_input = QLineEdit(dialog)
+        floors_input.setPlaceholderText("Кількість поверхів")
+        layout.addWidget(floors_input)
+
+        # Кнопка для збереження
+        save_button = QPushButton("Зберегти", dialog)
+        layout.addWidget(save_button)
+
+        save_button.clicked.connect(lambda: self.save_new_house(name_input, address_input, floors_input, dialog))
+
+        dialog.setLayout(layout)
+        dialog.exec_()
+
+
+    def save_new_house(self, name_input, address_input, floors_input, dialog):
+        # Отримуємо значення з полів
+        name = name_input.text()
+        address = address_input.text()
+        floors = floors_input.text()
+
+        # Перевіряємо, чи всі поля заповнені
+        if not name or not address or not floors:
+            print("Будь ласка, заповніть всі поля!")
+            return
+
+        # Зберігаємо новий будинок через контролер
+        self.controller.create_house(name, address, int(floors))
+
+        # Закриваємо форму після збереження
+        dialog.accept()
+
+        # Оновлюємо сітку будинків
+        self.refresh_grid()
+
+
+    def refresh_grid(self):
+        # Очищаємо сітку (включно з макетами)
+        for i in reversed(range(self.grid_layout.count())):
+            item = self.grid_layout.itemAt(i)
+            if item is not None:
+                widget = item.widget()  # Отримуємо віджет
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    # Якщо немає віджета, це може бути макет (layout), очищуємо його
+                    layout = item.layout()
+                    if layout is not None:
+                        while layout.count():
+                            child = layout.takeAt(0)
+                            if child.widget() is not None:
+                                child.widget().deleteLater()
+                        self.grid_layout.removeItem(layout)
+        # Додаємо будинки заново
+        houses = self.controller.view_houses()
+        row, col = 0, 0
+        for house in houses:
+            self.add_house_block(house, row, col)
+            col += 1
+            if col == 3:
+                col = 0
+                row += 1
+
+        # Додаємо кнопку для нового будинку для адміністратора
+        if self.controller.is_admin:
+            self.add_new_house_block(row, col)
 
 
 class ClickableHouseWidget(QWidget):
@@ -110,7 +194,7 @@ class ClickableHouseWidget(QWidget):
         from views.stage_view import StageViewWindow
         parent = self.parent()
 
-        print(f"Opening stage view for house: {self.house.name}")  # Додайте цю строку
+        print(f"Opening stage view for house: {self.house.name}")
         stage_view = StageViewWindow(self.house, is_admin=parent.controller.is_admin)
         self.parent().close()
         stage_view.exec_()
