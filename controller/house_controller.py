@@ -10,11 +10,15 @@ class HouseController:
         houses = self.house_service.get_houses(self.is_admin)
         return houses
 
+    def change_house_photo(self, house_id, photo_path):
+        self.house_service.change_photo(self.is_admin, house_id, photo_path)
+
+
     def create_house(self, name, address, floors):
         self.house_service.add_house(self.is_admin, name, address, floors)
 
-    def edit_house(self, house_id, photo, name, address, floors):
-        self.house_service.update_house(self.is_admin, house_id, photo, name, address, floors)
+    def edit_house(self, house_id, name, address, floors):
+        self.house_service.update_house(self.is_admin, house_id, name, address, floors)
 
     def remove_house(self, house_id):
         self.house_service.delete_house(self.is_admin, house_id)

@@ -14,3 +14,14 @@ class UserRepository:
         cursor.close()
         connection.close()
         return user
+
+    def add_user(self, username, hashed_password, role='user'):
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(
+            "INSERT INTO users (username, password, role) VALUES (%s, %s, %s)",
+            (username, hashed_password, role)
+        )
+        connection.commit()
+        cursor.close()
+        connection.close()

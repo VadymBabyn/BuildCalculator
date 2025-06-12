@@ -22,11 +22,21 @@ class HouseRepository:
         cursor.close()
         connection.close()
 
-    def update_house(self, house_id, photo, name, address, floors):
+    def update_house(self, house_id, name, address, floors):
         connection = get_connection()
         cursor = connection.cursor()
         # Додаємо photo до SQL запиту
-        cursor.execute("UPDATE houses SET photo=%s, name=%s, address=%s, floors=%s WHERE id=%s", (photo, name, address, floors, house_id))
+        cursor.execute("UPDATE houses SET name=%s, address=%s, floors=%s WHERE id=%s", (name, address, floors, house_id))
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+    def change_photo(self, house_id, photo_path):
+        connection = get_connection()
+        cursor = connection.cursor()
+        # Додаємо photo до SQL запиту
+        cursor.execute("UPDATE houses SET photo=%s WHERE id=%s",
+                       (photo_path, house_id))
         connection.commit()
         cursor.close()
         connection.close()
