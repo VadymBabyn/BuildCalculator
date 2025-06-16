@@ -123,6 +123,7 @@ class SingleStageDetailChartWindow(QDialog):
         if file_path:
             self.figure.savefig(file_path)
 
+
 # Тест
 if __name__ == "__main__":
     import sys

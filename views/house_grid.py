@@ -308,7 +308,7 @@ class ClickableHouseWidget(QWidget):
                         suma_purch += payment.sum
 
         info_text = f"{self.house.name}\n{self.house.address}\nКількість поверхів: " \
-                    f"{self.house.floors}\n Запланована сумма: {total_cost} \n Потрачена сумма: {suma_purch}"
+                    f"{self.house.floors}\n Запланована сума: {total_cost} \n Потрачена сума: {suma_purch}"
         info_label = QLabel(info_text, self)
         info_label.setAlignment(Qt.AlignCenter)
         info_label.setStyleSheet(

@@ -109,7 +109,7 @@ class MaterialView(QDialog):
         # Створюємо таблицю
         self.table = QTableWidget()
         self.table.setColumnCount(7)  # Кількість колонок
-        self.table.setHorizontalHeaderLabels(["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сумма", "Дія"])
+        self.table.setHorizontalHeaderLabels(["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сума", "Дія"])
         self.table.setSizeAdjustPolicy(QTableWidget.AdjustToContents)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.verticalHeader().setDefaultSectionSize(40)
@@ -334,10 +334,10 @@ class MaterialView(QDialog):
             summa = 0
             for row_index, material in enumerate(test_data):
                 summa += material.sum
-            self.setWindowTitle(self.table_as + " Загальна Сумма: " + str(summa))
+            self.setWindowTitle(self.table_as + " Загальна Сума: " + str(summa))
             self.table.clear()
             self.table.setColumnCount(6)
-            self.table.setHorizontalHeaderLabels(["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сумма", "Дія"])
+            self.table.setHorizontalHeaderLabels(["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сума", "Дія"])
             self.table.setRowCount(len(test_data) + 1)
             try:
                 for row_index, material in enumerate(test_data):
@@ -368,11 +368,11 @@ class MaterialView(QDialog):
 
 
             self.table.setColumnCount(7)
-            self.table.setHorizontalHeaderLabels(["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сумма", "Дія", "Історія"])
+            self.table.setHorizontalHeaderLabels(["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сума", "Дія", "Історія"])
             summa = 0
             for row_index, material in enumerate(test_data):
                 summa += material.sum
-            self.setWindowTitle(self.table_as + " Загальна Сумма: " + str(summa))
+            self.setWindowTitle(self.table_as + " Загальна Сума: " + str(summa))
             self.table.setRowCount(len(test_data) + 1)
             try:
                 for row_index, material in enumerate(test_data):
@@ -408,11 +408,11 @@ class MaterialView(QDialog):
             self.table.clear()
             self.table.setColumnCount(8)
             self.table.setHorizontalHeaderLabels(
-                ["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сумма", "Дія", "Історія", "Видалення"])
+                ["Назва матеріалу", "од. вимір.", "Кількість", "Ціна", "Сума", "Дія", "Історія", "Видалення"])
             summa = 0
             for row_index, payment in enumerate(test_data_pay):
                 summa += payment.sum
-            self.setWindowTitle(self.table_as + " Загальна Сумма: " + str(summa))
+            self.setWindowTitle(self.table_as + " Загальна Сума: " + str(summa))
             self.table.setRowCount(len(test_data_pay) + 1)
             try:
                 for row_index, payment in enumerate(test_data_pay):
@@ -454,12 +454,12 @@ class MaterialView(QDialog):
             summa = 0
             for row_index, history in enumerate(test_data_history):
                 summa += history.sum
-            self.setWindowTitle(self.table_as + " Загальна Сумма: " + str(summa))
+            self.setWindowTitle(self.table_as + " Загальна Сума: " + str(summa))
             self.table.clear()
             if self.matheriales_id:
-                self.table.setHorizontalHeaderLabels(["Дата та час", "Постачальник", "Кількість", "Ціна", "Сумма", "Дія"])
+                self.table.setHorizontalHeaderLabels(["Дата та час", "Постачальник", "Кількість", "Ціна", "Сума", "Дія"])
             else:
-                self.table.setHorizontalHeaderLabels(["Дата та час", "Працівник", "Кількість", "Ціна", "Сумма", "Дія"])
+                self.table.setHorizontalHeaderLabels(["Дата та час", "Працівник", "Кількість", "Ціна", "Сума", "Дія"])
             self.table.setRowCount(len(test_data_history))
             try:
                 for row_index, history in enumerate(test_data_history):
@@ -505,7 +505,7 @@ class MaterialView(QDialog):
                     ]
                     summa += material.sum - test_data_purchaced[row_index].sum
 
-                    self.setWindowTitle(self.table_as + " Загальна Сумма: " + str(summa))
+                    self.setWindowTitle(self.table_as + " Загальна Сума: " + str(summa))
                     for col_index, item in enumerate(row_data):
                         self.table.setItem(row_index, col_index, QTableWidgetItem(str(item)))
             except Exception as e:
